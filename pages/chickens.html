@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chickens</title>
+    <style>
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+    <script src="../tailwind.js"></script>
+</head>
+
+<body class="bg-gray-100">
+    <h1 class="text-3xl text-center text-orange-600 my-3 font-bold">
+        Chickens
+    </h1>
+    <div class=" bg-white rounded flex w-full mx-4 md:w-4/6 md:mx-auto relative h-52 mb-4 ">
+        <img alt="" src="../img/chicks.jpg" class="w-full h-full">
+    </div>
+    <div
+        class="p-3 divide-x bg-white rounded flex w-full mx-4 md:w-4/6 md:mx-auto flex-row items-center justify-around">
+        <div>
+            <h1 class="text-2xl font-bold" id="totalLabel">01</h1>
+            <p class="text-md">Total</p>
+        </div>
+        <div class="pl-3">
+            <h1 class="text-2xl font-bold" id="soldLabel">21%</h1>
+            <p class="text-md">Sold</p>
+        </div>
+        <div class="pl-3">
+            <h1 class="text-2xl font-bold" id="diedLabel">20</h1>
+            <p class="text-md">Died</p>
+        </div>
+    </div>
+    <!-- end of stat-->
+    <div class="p-3 mt-4 bg-white rounded flex w-full mx-4 md:w-4/6 md:mx-auto flex-col items-center justify-around">
+        <h4 class="mb-4">Add New Record</h4>
+        <div class="flex flex-col">
+            <form id="form">
+                <select id="operation" class="bg-gray-100 rounded shadow-sm px-3 py-1 mb-4 h-8">
+                    <option value="total">Total</option>
+                    <option value="sold">Sold</option>
+                    <option value="died">Died</option>
+                </select>
+                <input required placeholder="Amount in number" id="amount" type="number"
+                    class="bg-gray-100 rounded shadow-sm px-3 py-1 mb-4">
+                <button class="bg-blue-800 text-sm text-white px-4 py-1 rounded">Submit</button>
+            </form>
+    <a class="text-blue-700" href="../index.html">Home</a>
+
+        </div>
+        <script>
+            window.onload = () => {
+                var sold = document.getElementById("soldLabel");
+                var total = document.getElementById("totalLabel");
+                var died = document.getElementById("diedLabel");
+                var amount = document.getElementById("amount");
+                var operation = document.getElementById("operation");
+                var chickens = JSON.parse(localStorage.getItem("@chickens"))
+                var tempData = chickens
+
+                died.innerHTML = chickens.died;
+                sold.innerHTML = chickens.sold;
+                total.innerHTML = chickens.total;
+
+                function updateUI() {
+                    died.innerHTML = tempData.died;
+                    sold.innerHTML = tempData.sold;
+                    total.innerHTML = tempData.total;
+                    amount.value = ''
+                }
+
+                function updateDatabase() {
+                    localStorage.setItem("@chickens", JSON.stringify(tempData));
+                    alert("Operation Successful")
+
+                }
+
+                document.getElementById('form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    switch (operation.value) {
+                        case "total":
+                            tempData.total += parseInt(amount.value)
+                            updateUI()
+                            updateDatabase();
+                            break;
+                        case "died":
+                            tempData.died += parseInt(amount.value)
+                            updateUI()
+                            updateDatabase();
+                            break;
+                        case "sold":
+                            tempData.sold += parseInt(amount.value)
+                            updateUI()
+                            updateDatabase();
+                            break;
+                        default:
+                            alert("default value")
+                    }
+                })
+
+            }
+
+        </script>
+
+</body>
+
+</html>
