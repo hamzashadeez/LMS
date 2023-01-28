@@ -47,17 +47,17 @@
     </footer>
     <script>
 
-        let chickens = {
+        let chickensD = {
             total: 1247,
             sold: 533,
             died: 40
         }
-        let sheeps = {
+        let sheepsD = {
             total: 45,
             sold: 13,
             died: 0
         }
-        let cattles = {
+        let cattlesD = {
             total: 32,
             sold: 4,
             died: 0
@@ -65,10 +65,12 @@
         window.onload = ()=>{
             var cattles = JSON.parse(localStorage.getItem("@cattles"))
             if(cattles === null){
-                localStorage.setItem("@chickens", JSON.stringify(chickens))
-                localStorage.setItem("@sheeps", JSON.stringify(sheeps))
-                localStorage.setItem("@cattles", JSON.stringify(cattles))
+                localStorage.setItem("@chickens", JSON.stringify(chickensD))
+                localStorage.setItem("@sheeps", JSON.stringify(sheepsD))
+                localStorage.setItem("@cattles", JSON.stringify(cattlesD))
 
+            }else{
+                console.log("there is data already")
             }
 
 
@@ -100,7 +102,6 @@
                 ['Chickens', chickenStat.total],
             ]);
 
-            console.log(chickens)
 
             // Optional; add a title and set the width and height of the chart
             var options = { 'title': 'My Farm Stats', 'width': 550, 'height': 400 };
